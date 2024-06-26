@@ -24,12 +24,19 @@ export default {
             total: data.count,
           };
     },
-
+    
     getOne: async (resource, params) => {
-        const url = `${apiUrl}/${resource}/${params.id}`
-        const { json } = await httpClient(url, { signal: params.signal });
-        return { data: json };
-    },
+        const category = JSON.parse(localStorage.getItem('show') as string)
+        const url = `${apiUrl}/${resource}/one?id=${params.id}&category=${category}`
+  
+        const {
+          data
+        } = await axios.get(url)
+  
+        return {
+          data: data.productItem
+        };
+      },
 
     getMany: async (resource, params) => {
         const query = {

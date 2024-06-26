@@ -24,7 +24,7 @@ export default {
             total: data.count,
           };
     },
-    
+
     getOne: async (resource, params) => {
         const category = JSON.parse(localStorage.getItem('show') as string)
         const url = `${apiUrl}/${resource}/one?id=${params.id}&category=${category}`
@@ -94,13 +94,19 @@ export default {
         })
         return { data: json };
     },
-
+    
     delete: async (resource, params) => {
-        const url = `${apiUrl}/${resource}/${params.id}`;
-        const { json } = await httpClient(url, {
-            method: 'DELETE',
-        });
-        return { data: json };
+        const id = params.previousData && params.previousData.id
+        const category = params.previousData && params.previousData.category
+        const url = `${apiUrl}/${resource}/delete?id=${id}&category=${category}`
+
+        const {
+            data
+        } = await axios.get(url)
+
+        return {
+            data
+        };
     },
 
     deleteMany: async (resource, params) => {

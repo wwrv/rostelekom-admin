@@ -94,7 +94,7 @@ export default {
         })
         return { data: json };
     },
-    
+
     delete: async (resource, params) => {
         const id = params.previousData && params.previousData.id
         const category = params.previousData && params.previousData.category
@@ -108,16 +108,14 @@ export default {
             data
         };
     },
-
+    
     deleteMany: async (resource, params) => {
-        const query = {
-            filter: JSON.stringify({ id: params.ids}),
-        };
-        const url = `${apiUrl}/${resource}?${stringify(query)}`;
-        const { json } = await httpClient(url, {
-            method: 'DELETE',
-            body: JSON.stringify(params.data),
-        });
-        return { data: json };
+      const url = `${apiUrl}/${resource}/delete-many?ids=${JSON.stringify(params.ids)}`
+
+      await axios.get(url)
+
+      return {
+        data: []
+      };
     },
 } as DataProvider;

@@ -1,13 +1,10 @@
-import {
-  Admin,
-  Resource,
-  ListGuesser,
-  EditGuesser,
-  ShowGuesser,
-} from "react-admin";
-import { Layout } from "./Layout";
-import { authProvider } from "./authProvider";
+import { Admin, Resource } from "react-admin";
+import authProvider        from "./authProvider";
+import dataProvider        from "./dataProvider";
+import { GoodsList }       from '../components/GoodsList/GoodsList';
 
 export const App = () => (
-  <Admin layout={Layout} authProvider={authProvider}></Admin>
+<Admin authProvider={authProvider} dataProvider={dataProvider}>
+    <Resource name="goods" list={GoodsList} />
+  </Admin>
 );
